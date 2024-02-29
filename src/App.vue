@@ -178,7 +178,6 @@ function startSlotMachine() {
     for (let i = 0; i < result_1.value.length; i++) {
       had_random.add(result_1.value[i]);
     }
-
     // 1-75进行随机，不包含已经获得的数
     let random = [];
     for (let i = 1; i <= 75; i++) {
