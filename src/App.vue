@@ -9,6 +9,9 @@
         size="large"
         style="--el-switch-on-color: #0bf201; --el-switch-off-color: #ed8303"
     />
+    <el-text class="e">
+      中奖号码
+    </el-text>
     <el-button class="d" type="warning" @click="removeResultTail">
       回退一轮
     </el-button>
@@ -139,7 +142,7 @@ function checkSpinning() {
   return false;
 }
 
-const duration = 2000; // 抽奖持续时间
+const duration = 1000; // 抽奖持续时间
 const itemHeight = 60;
 
 function shuffleArray(array) {
@@ -188,6 +191,7 @@ function startSlotMachine() {
     random = shuffleArray(random);
     // 取前25个数
     random = random.slice(0, 25);
+
     // 5*5个slot-machine进行抽奖
     for (let i = 0; i < 5; i++) {
       for (let j = 0; j < 5; j++) {
@@ -213,7 +217,6 @@ function startSlotMachine() {
 
     if(switch_status.value){
       result_5_flag = true
-      // 要选出5个
       // 随机选出0-24中5个就可以
       // 在random中随机取出5个并记录所在的行列
       let a = []
@@ -232,40 +235,41 @@ function startSlotMachine() {
       // 以下是对角线的方式
       // 5*5的矩阵随机选择后一行或某一列或对角线
       // 将所在的slot-machine的背景变为红色
-    //   let select_index = Math.floor(Math.random() * 3);
-    //   if (select_index === 0) {
-    //     // 选出一行
-    //     let select_row = Math.floor(Math.random() * 5);
-    //     turn_selected_result = random.slice(select_row * 5, select_row * 5 + 5);
-    //     for (let i = 0; i < 5; i++) {
-    //       turn_selected_row_col.push([select_row, i]);
-    //     }
-    //   } else if (select_index === 1) {
-    //     // 选出一列
-    //     let select_col = Math.floor(Math.random() * 5);
-    //     turn_selected_result = [];
-    //     for (let i = 0; i < 5; i++) {
-    //       turn_selected_result.push(random[i * 5 + select_col]);
-    //       turn_selected_row_col.push([i, select_col]);
-    //     }
-    //   } else {
-    //     // 选出对角线
-    //     let select_diagonal = Math.floor(Math.random() * 2);
-    //     turn_selected_result = [];
-    //     if (select_diagonal === 0) {
-    //       for (let i = 0; i < 5; i++) {
-    //         turn_selected_result.push(random[i * 5 + i]);
-    //         turn_selected_row_col.push([i, i]);
-    //       }
-    //     } else {
-    //       for (let i = 0; i < 5; i++) {
-    //         turn_selected_result.push(random[i * 5 + 4 - i]);
-    //         turn_selected_row_col.push([i, 4 - i]);
-    //       }
-    //     }
-    //   }
-    //
-    }else{
+      //   let select_index = Math.floor(Math.random() * 3);
+      //   if (select_index === 0) {
+      //     // 选出一行
+      //     let select_row = Math.floor(Math.random() * 5);
+      //     turn_selected_result = random.slice(select_row * 5, select_row * 5 + 5);
+      //     for (let i = 0; i < 5; i++) {
+      //       turn_selected_row_col.push([select_row, i]);
+      //     }
+      //   } else if (select_index === 1) {
+      //     // 选出一列
+      //     let select_col = Math.floor(Math.random() * 5);
+      //     turn_selected_result = [];
+      //     for (let i = 0; i < 5; i++) {
+      //       turn_selected_result.push(random[i * 5 + select_col]);
+      //       turn_selected_row_col.push([i, select_col]);
+      //     }
+      //   } else {
+      //     // 选出对角线
+      //     let select_diagonal = Math.floor(Math.random() * 2);
+      //     turn_selected_result = [];
+      //     if (select_diagonal === 0) {
+      //       for (let i = 0; i < 5; i++) {
+      //         turn_selected_result.push(random[i * 5 + i]);
+      //         turn_selected_row_col.push([i, i]);
+      //       }
+      //     } else {
+      //       for (let i = 0; i < 5; i++) {
+      //         turn_selected_result.push(random[i * 5 + 4 - i]);
+      //         turn_selected_row_col.push([i, 4 - i]);
+      //       }
+      //     }
+      //   }
+      //
+    }
+    else{
       // 选出1个
       // 这个只需要0-24选取一个
       let select_index = Math.floor(Math.random() * random.length);
@@ -425,5 +429,15 @@ const setSlotMachineCellRef = el => {
   top: 14.6%;
   left: 53%;
   z-index: 1;
+}
+.e{
+  position: absolute;
+  top: 6%;
+  left: 70%;
+  z-index: 1;
+
+  font-size: 3vw;
+  font-weight: bold;
+  color: black;
 }
 </style>
