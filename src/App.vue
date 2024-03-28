@@ -92,7 +92,6 @@ function resetPositions() {
     positions.value[i] = 0;
   }
 
-
 }
 function removeResultTail() {
   if(opStack.length === 0){
@@ -131,26 +130,25 @@ function renderFromRowCol() {
   for (let i = 0; i < turn_selected_row_col.length; i++) {
     turn_select_index.push(turn_selected_row_col[i][0] * 5 + turn_selected_row_col[i][1]);
   }
-  // 其他方块不可见
-  for (let i = 0; i < slotMachineCellRefs.value.length; i++) {
-    if (!turn_select_index.includes(i)) {
-      slotMachineCellRefs.value[i].style.visibility = 'hidden';
-    }
-  }
-
   // 将选中的方块背景变为红色
   for (let i = 0; i < turn_selected_row_col.length; i++) {
     slotMachineCellRefs.value[turn_selected_row_col[i][0] * 5 + turn_selected_row_col[i][1]].style.backgroundColor = 'red';
   }
+  // 1秒后其他方块不可见
+  setTimeout(() => {
+    for (let i = 0; i < slotMachineCellRefs.value.length; i++) {
+      if (!turn_select_index.includes(i)) {
+        slotMachineCellRefs.value[i].style.visibility = 'hidden';
+      }
+    }
+  }, 1000);
 
-
-
-
-
-
-
-
-
+  // 其他方块不可见
+  // for (let i = 0; i < slotMachineCellRefs.value.length; i++) {
+  //   if (!turn_select_index.includes(i)) {
+  //     slotMachineCellRefs.value[i].style.visibility = 'hidden';
+  //   }
+  // }
 }
 watch(() => spinnings.value[24], (value, oldValue, onCleanup) => {
   canRender = !value;
