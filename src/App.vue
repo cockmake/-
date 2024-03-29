@@ -134,13 +134,14 @@ function renderFromRowCol() {
   for (let i = 0; i < turn_selected_row_col.length; i++) {
     slotMachineCellRefs.value[turn_selected_row_col[i][0] * 5 + turn_selected_row_col[i][1]].style.backgroundColor = 'red';
   }
-  // 1秒后其他方块不可见
+  // 1秒后其他方块不可见并且抽奖结束
   setTimeout(() => {
     for (let i = 0; i < slotMachineCellRefs.value.length; i++) {
       if (!turn_select_index.includes(i)) {
         slotMachineCellRefs.value[i].style.visibility = 'hidden';
       }
     }
+    rolling.value = false;
   }, 1000);
 
   // 其他方块不可见
@@ -160,8 +161,11 @@ watch(() => spinnings.value[24], (value, oldValue, onCleanup) => {
     }, 700);
   }
 })
+const rolling = ref(false);
 function checkSpinning() {
   // 检查是否有slot-machine正在抽奖
+  // rolling是否为true
+  if (rolling.value)  return true;
   for (let i = 0; i < spinnings.value.length; i++) {
     if (spinnings.value[i]) {
       return true;
@@ -170,7 +174,7 @@ function checkSpinning() {
   return false;
 }
 
-const duration = 1000; // 抽奖持续时间
+const duration = 800; // 抽奖持续时间
 const itemHeight = 60;
 
 function shuffleArray(array) {
@@ -190,6 +194,8 @@ const easeOut = (t) => t * (2 - t);
 function startSlotMachine() {
   if (!checkSpinning()) {
     resetPositions();
+    rolling.value = true;
+
     turn_selected_row_col = []
     turn_selected_result = null
     result_5_flag = false
